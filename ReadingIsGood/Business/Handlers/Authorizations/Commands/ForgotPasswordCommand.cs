@@ -16,7 +16,7 @@ namespace Business.Handlers.Authorizations.Commands
 {
 	public class ForgotPasswordCommand : IRequest<IResult>
 	{
-		public string TcKimlikNo { get; set; }
+		//public string TcKimlikNo { get; set; }
 		public string Email { get; set; }
 
 		public class ForgotPasswordCommandHandler : IRequestHandler<ForgotPasswordCommand, IResult>
@@ -33,23 +33,24 @@ namespace Business.Handlers.Authorizations.Commands
 			/// <param name="request"></param>
 			/// <param name="cancellationToken"></param>
 			/// <returns></returns>
-			[SecuredOperation(Priority = 1)]
+			//[SecuredOperation(Priority = 1)]
 			[CacheRemoveAspect()]
 			[LogAspect(typeof(FileLogger))]
 			public async Task<IResult> Handle(ForgotPasswordCommand request, CancellationToken cancellationToken)
 			{
-				var user = await _userRepository.GetAsync(u => u.CitizenId == Convert.ToInt64(request.TcKimlikNo));
+				var user = await _userRepository.GetAsync(u => u.Email == request.Email);
 
 				if (user == null)
 				{
-					return new ErrorResult(Messages.WrongCitizenId);
+					return new ErrorResult(Messages.UserNotFound);
 				}
 
-				var generatedPassword = RandomPassword.CreateRandomPassword(14);
+				var generatedPassword = "CodeBase123.";
 				HashingHelper.CreatePasswordHash(generatedPassword, out var passwordSalt, out var passwordHash);
-
+				user.PasswordSalt = passwordSalt;
+				user.PasswordHash = passwordHash;
 				_userRepository.Update(user);
-
+				await _userRepository.SaveChangesAsync();
 				return new SuccessResult(Messages.SendPassword + Messages.NewPassword + generatedPassword);
 			}
 		}

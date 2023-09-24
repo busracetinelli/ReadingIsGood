@@ -1,4 +1,5 @@
 using Core.Entities.Concrete;
+using Entities.Concrete;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System;
@@ -49,6 +50,13 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
 		public DbSet<MobileLogin> MobileLogins { get; set; }
 		public DbSet<Language> Languages { get; set; }
 		public DbSet<Translate> Translates { get; set; }
+		public DbSet<Order> Orders { get; set; }
+  public DbSet<Product> Products { get; set; }
+  public DbSet<OrderDetail> OrderDetails { get; set; }
+  public DbSet<ProductDetail> ProductDetails { get; set; }
+  public DbSet<Currency> Currencies { get; set; }
+  public DbSet<Cart> Carts { get; set; }
+  public DbSet<CartDetail> CartDetails { get; set; }
 
 		protected IConfiguration Configuration { get; }
 
@@ -62,7 +70,7 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
 			AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 			if (!optionsBuilder.IsConfigured)
 			{
-				base.OnConfiguring(optionsBuilder.UseNpgsql(Configuration.GetConnectionString("DArchPgContext"))
+				base.OnConfiguring(optionsBuilder.UseNpgsql(Configuration.GetConnectionString("PostgreDbConnection"))
 					.EnableSensitiveDataLogging());
 			}
 		}

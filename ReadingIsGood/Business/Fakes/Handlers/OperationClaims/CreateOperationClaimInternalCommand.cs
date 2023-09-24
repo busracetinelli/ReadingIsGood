@@ -3,6 +3,7 @@ using Core.Entities.Concrete;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using MediatR;
+using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -42,7 +43,13 @@ namespace Business.Fakes.Handlers.OperationClaims
 
 			private bool IsClaimExists(string claimName)
 			{
-				return _operationClaimRepository.Query().Any(x => x.Name == claimName);
+				try 
+				{return _operationClaimRepository.Query().Any(x => x.Name == claimName);
+				}
+				catch(Exception ex)
+				{
+					throw ex;
+				}
 			}
 		}
 	}

@@ -90,6 +90,13 @@ namespace Business
 		public void ConfigureDevelopmentServices(IServiceCollection services)
 		{
 			ConfigureServices(services);
+   services.AddTransient<ICartDetailRepository, CartDetailRepository>();
+   services.AddTransient<ICartRepository, CartRepository>();
+   services.AddTransient<ICurrencyRepository, CurrencyRepository>();
+   services.AddTransient<IProductDetailRepository, ProductDetailRepository>();
+   services.AddTransient<IOrderDetailRepository, OrderDetailRepository>();
+   services.AddTransient<IProductRepository, ProductRepository>();
+			//services.AddTransient<IOrderRepository, OrderRepository>();
 			services.AddTransient<ILogRepository, LogRepository>();
 			services.AddTransient<ITranslateRepository, TranslateRepository>();
 			services.AddTransient<ILanguageRepository, LanguageRepository>();
@@ -102,8 +109,8 @@ namespace Business
 			services.AddTransient<IGroupClaimRepository, GroupClaimRepository>();
 			services.AddTransient<IUserGroupRepository, UserGroupRepository>();
 
-			services.AddDbContext<ProjectDbContext, DArchInMemory>(ServiceLifetime.Transient);
-			services.AddSingleton<MongoDbContextBase, MongoDbContext>();
+			services.AddDbContext<ProjectDbContext, PostgreDbContext>(ServiceLifetime.Transient);
+			//services.AddSingleton<MongoDbContextBase, MongoDbContext>();
 		}
 
 		/// <summary>
@@ -113,6 +120,13 @@ namespace Business
 		public void ConfigureStagingServices(IServiceCollection services)
 		{
 			ConfigureServices(services);
+   services.AddTransient<ICartDetailRepository, CartDetailRepository>();
+   services.AddTransient<ICartRepository, CartRepository>();
+   services.AddTransient<ICurrencyRepository, CurrencyRepository>();
+   services.AddTransient<IProductDetailRepository, ProductDetailRepository>();
+   services.AddTransient<IOrderDetailRepository, OrderDetailRepository>();
+   services.AddTransient<IProductRepository, ProductRepository>();
+  // services.AddTransient<IOrderRepository, OrderRepository>();
 			services.AddTransient<ILogRepository, LogRepository>();
 			services.AddTransient<ITranslateRepository, TranslateRepository>();
 			services.AddTransient<ILanguageRepository, LanguageRepository>();
@@ -135,6 +149,13 @@ namespace Business
 		public void ConfigureProductionServices(IServiceCollection services)
 		{
 			ConfigureServices(services);
+   services.AddTransient<ICartDetailRepository, CartDetailRepository>();
+   services.AddTransient<ICartRepository, CartRepository>();
+   services.AddTransient<ICurrencyRepository, CurrencyRepository>();
+   services.AddTransient<IProductDetailRepository, ProductDetailRepository>();
+   services.AddTransient<IOrderDetailRepository, OrderDetailRepository>();
+   services.AddTransient<IProductRepository, ProductRepository>();
+ //  services.AddTransient<IOrderRepository, OrderRepository>();
 			services.AddTransient<ILogRepository, LogRepository>();
 			services.AddTransient<ITranslateRepository, TranslateRepository>();
 			services.AddTransient<ILanguageRepository, LanguageRepository>();

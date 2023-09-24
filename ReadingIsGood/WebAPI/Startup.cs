@@ -121,7 +121,7 @@ namespace WebAPI
 			switch (configurationManager.Mode)
 			{
 				case ApplicationMode.Development:
-					_ = app.UseDbFakeDataCreator();
+					//_ = app.UseDbFakeDataCreator();
 					break;
 
 				case ApplicationMode.Profiling:
